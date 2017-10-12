@@ -6,13 +6,18 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.stereotype.Repository;
+
 import pl.kobietydokodu.koty.KotDAO;
 
 @Controller
 public class KotyController {
 
 	@Autowired
-	KotDAO dao;
+	private KotDAO dao;
 	
 	@RequestMapping("/lista")
 	public String listaKotow(Model model) {
@@ -25,10 +30,19 @@ public class KotyController {
 		return "dodaj";
 	}
 	
+	@RequestMapping("/kot/{imie}")
+    public String szczegolyKota(@PathVariable("imie") String imieKota) {
+        return "glowny";
+    }	
+	
 	@RequestMapping("/kot-{id}")
 	public String szczegolyKota(@PathVariable("id") Integer id, Model model) {
 		model.addAttribute("kot", dao.getKotById(id));
 		return "szczegoly";
 	}
-	
+	@Repository
+	public class KotDAO{
+		
+	}
+	}
 }
